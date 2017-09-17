@@ -5,6 +5,7 @@
 */DerivedDataCache
 */Intermediate
 */Saved
+*.suo
 
 BuildingEscape/Content/StarterContent
 
@@ -13,3 +14,4 @@ BuildingEscape/Content/StarterContent
 *.vc.opendb
 *.VC.db-shm
 *.VC.db-wal
+*.icph

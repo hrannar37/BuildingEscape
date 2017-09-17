@@ -3,6 +3,8 @@
 #include "Rotate_Table.h"
 #include "GameFramework/Actor.h"
 
+float RotationValue = 0.0f;
+
 // Sets default values for this component's properties
 URotate_Table::URotate_Table()
 {
@@ -19,8 +21,6 @@ void URotate_Table::BeginPlay()
 {
 	Super::BeginPlay();
 
-	int32 Table_Z_Rotation = GetOwner()->GetTransform().GetRotation().Z;
-	UE_LOG(LogTemp, Warning, TEXT("Z Rotation is %d"), *Table_Z_Rotation)
 
 	// ...
 	
@@ -32,6 +32,14 @@ void URotate_Table::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	AActor* Table_Owner = GetOwner();
+	RotationValue = (RotationValue + 4.0);
+	if (RotationValue >= 360) { RotationValue = 0; };
+	UE_LOG(LogTemp, Warning, TEXT("Rotation Value Is %f"), RotationValue);
+
+	FRotator NewRotation = FRotator(0.0f, (RotationValue), 0.0f);
+
+	Table_Owner->SetActorRotation(NewRotation);
 	// ...
 }
 
