@@ -15,3 +15,7 @@ BuildingEscape/Content/StarterContent
 *.VC.db-shm
 *.VC.db-wal
 */icph
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/14c48121d91e307/BUILDINGESCAPE.ipch
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/9a4cdd50ae6bd32a/OPENDOOR.ipch
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/c344f63006bf1058/ROTATE_TABLE.ipch
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/ef29d31c4ced6fa6/POSITIONREPORT_TABLE.ipch
