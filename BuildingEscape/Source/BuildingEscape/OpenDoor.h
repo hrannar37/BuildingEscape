@@ -22,14 +22,21 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void OpenDoor();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 		
 private:
-	UPROPERTY(VisibleAnywhere)
-		float OpenAngle = 90.f;	
+	UPROPERTY(EditAnywhere)
+		float OpenAngle = 90.0f;
+	UPROPERTY(EditAnywhere)
+		float CloseAngle = 0.0f;
 	
 	UPROPERTY(EditAnywhere)
 		ATriggerVolume* PressurePlate;
+
+		AActor* ActorThatOpens;
+		FRotator ClosedState = FRotator(0.0f, (CloseAngle), 0.0f);
 };
