@@ -35,7 +35,6 @@ void URotate_Table::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 	AActor* Table_Owner = GetOwner();
 	RotationValue = (RotationValue + 4.0);
 	if (RotationValue >= 360) { RotationValue = 0; };
-	UE_LOG(LogTemp, Warning, TEXT("Rotation Value Is %f"), RotationValue);
 
 	FRotator NewRotation = FRotator(0.0f, (RotationValue), 0.0f);
 
