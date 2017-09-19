@@ -8,6 +8,7 @@
 *.suo
 
 BuildingEscape/Content/StarterContent
+!BuildingEscape/Content/StarterContent/Props
 
 # VS Generated files
 *.vc.db
