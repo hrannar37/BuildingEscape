@@ -1,6 +1,7 @@
 // Copyright Mike_Tengu  2017
 
 #include "OpenDoor.h"
+//#include "Engine/World.h" for function complete purposes
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()

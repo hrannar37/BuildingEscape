@@ -1,8 +1,7 @@
 // Copyright Mike_Tengu  2017
 #include "PositionReporter.h"
 #include "GameFramework/Actor.h"
-//#include "BuildingEscape.h" 
-//TODO find out if this ^ is needed down the line if anything is added to BuildingEscape Header (current conflict is #include "CoreMinimal.h")
+//#include "Engine/World.h" for function complete purposes
 
 // Sets default values for this component's properties
 UPositionReporter::UPositionReporter()
