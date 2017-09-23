@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "GameFramework/Actor.h"
 #include "Grabber.generated.h"
 
@@ -13,7 +14,7 @@ class BUILDINGESCAPE_API UGrabber : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UGrabber();
 
@@ -21,18 +22,24 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	void GetPlayerViewPoint();
-	void DrawGrabberReachLine();
-	void LineTrace();
+	void FindPhysicsHandleComponent();
+	void SetupInputComponent();
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	FVector PlayerLocation;
-	FRotator PlayerViewDirection;
 
 	UPROPERTY(EditAnywhere)
 		float Grabber_Lenght = 140.0f;
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
+
+	// Ray-cast and grab whats in reach
+	void Grab();
+	void GrabRelease();
+
+	FHitResult GetFirstPhysicsBodyInReach() const;
 };
