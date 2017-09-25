@@ -24,10 +24,13 @@ protected:
 
 	void FindPhysicsHandleComponent();
 	void SetupInputComponent();
+	//FVector GetLineTraceEnd() const;
 
 public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+
 
 private:
 
@@ -36,6 +39,7 @@ private:
 
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
+
 
 	// Ray-cast and grab whats in reach
 	void Grab();

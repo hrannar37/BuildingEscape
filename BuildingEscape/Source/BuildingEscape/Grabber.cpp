@@ -5,6 +5,7 @@
 #include "DrawDebugHelpers.h"
 
 
+
 // Sets default values for this component's properties
 UGrabber::UGrabber()
 {
@@ -56,6 +57,16 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	FRotator PlayerViewDirection;
+	FVector PlayerLocation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerLocation, PlayerViewDirection);
+	FVector LineTraceEnd = PlayerLocation + (PlayerViewDirection.Vector() * Grabber_Lenght);
+
+	//FVector LineTraceEnd = GetLineTraceEnd();
+	if (PhysicsHandle->GrabbedComponent)
+	{
+		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+	}
 }
 
 FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
@@ -65,8 +76,9 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerLocation, PlayerViewDirection);
 	FCollisionQueryParams TraceParameters = (FName(TEXT("")), false, GetOwner());
 	FHitResult LineTraceHit;
-
+	//FVector LineTraceEnd = GetLineTraceEnd();
 	FVector LineTraceEnd = PlayerLocation + (PlayerViewDirection.Vector() * Grabber_Lenght);
+
 	GetWorld()->LineTraceSingleByObjectType(
 		LineTraceHit,
 		PlayerLocation,
@@ -79,20 +91,40 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Hit Object %s"), *(ActorHit->GetName()));
 	}
-	return FHitResult();
+	return LineTraceHit;
 }
+
+/*FVector UGrabber::GetLineTraceEnd() const
+{
+	FVector LineTraceEnd = PlayerLocation + (PlayerViewDirection.Vector() * Grabber_Lenght);
+	return LineTraceEnd;
+}*/
+
 
 void UGrabber::Grab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab Pressed"));
 
-	GetFirstPhysicsBodyInReach();
+	auto HitResult = GetFirstPhysicsBodyInReach();
+	auto ComponentToGrab = HitResult.GetComponent();
+	auto ActorHit = HitResult.GetActor();
+	
 	//physics handle movement code
+	if (ActorHit) {
+		PhysicsHandle->GrabComponent(
+			ComponentToGrab,
+			NAME_None,
+			ComponentToGrab->GetOwner()->GetActorLocation(),
+			true
+		);
+	}
 }
 
 void UGrabber::GrabRelease()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab Released"));
+
+	PhysicsHandle->ReleaseComponent();
 }
 
 
