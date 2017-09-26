@@ -1,7 +1,6 @@
 // Copyright Mike_Tengu  2017
 
 #include "Grabber.h"
-#include "Engine/World.h" //TODO remove once the code is ready
 #include "DrawDebugHelpers.h"
 
 FRotator PlayerViewDirection;
@@ -42,7 +41,7 @@ void UGrabber::SetupInputComponent()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s Does not have a Input Component"), *GetOwner()->GetName())
+		UE_LOG(LogTemp, Error, TEXT("%s Does not have an Input Component"), *GetOwner()->GetName())
 	}
 }
 
@@ -54,6 +53,8 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerLocation, PlayerViewDirection);
 	FVector LineTraceEnd = PlayerLocation + (PlayerViewDirection.Vector() * Grabber_Lenght);
+
+	if (!PhysicsHandle) { return; }
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		PhysicsHandle->SetTargetLocation(LineTraceEnd);
@@ -84,6 +85,8 @@ void UGrabber::Grab()
 	auto ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
 	
+	
+	if (!PhysicsHandle) { return; }
 	//PhysicsHandle grab code
 	if (ActorHit) {
 		PhysicsHandle->GrabComponent(
@@ -95,7 +98,10 @@ void UGrabber::Grab()
 	}
 }
 
-void UGrabber::GrabRelease(){ PhysicsHandle->ReleaseComponent(); }
+void UGrabber::GrabRelease(){
+	if (!PhysicsHandle) { return; }
+	PhysicsHandle->ReleaseComponent(); 
+}
 
 
 

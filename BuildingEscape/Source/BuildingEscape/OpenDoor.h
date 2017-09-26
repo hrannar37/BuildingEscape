@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
 
@@ -35,13 +36,13 @@ private:
 	UPROPERTY(EditAnywhere)
 		float CloseAngle = 0.0f;
 	UPROPERTY(EditAnywhere)
-		ATriggerVolume* PressurePlate;
+		ATriggerVolume* PressurePlate = nullptr;
 	UPROPERTY(EditAnywhere)
 		float DoorCloseTime = 1.0f;
-
-
+	UPROPERTY(EditAnywhere)
+		AActor* ActorThatOpens;
+	
 	float DoorLastOpenTime = 1.0f;
-	AActor* ActorThatOpens;
 	AActor* Owner;
 	//FRotator ClosedState = FRotator(0.0f, (CloseAngle), 0.0f);
 };
